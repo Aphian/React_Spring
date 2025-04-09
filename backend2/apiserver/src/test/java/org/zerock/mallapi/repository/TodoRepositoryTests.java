@@ -33,11 +33,15 @@ public class TodoRepositoryTests {
     @Test
     public void testInsert() {
 
-        Todo todo = Todo.builder().title("Title").content("Content...").dueDate(LocalDate.of(2025, 4, 7)).build();
+        for (int i = 0; i < 100; i++) {
 
-        Todo result = todoRepository.save(todo);
+            Todo todo = Todo.builder().title("Title").content("Content...").dueDate(LocalDate.of(2025, 4, 7)).build();
 
-        log.info(result);
+            Todo result = todoRepository.save(todo);
+
+            log.info(result);
+
+        }
 
     }
 
