@@ -3,6 +3,9 @@ package org.zerock.mallapi.service;
 import org.zerock.mallapi.domain.Todo;
 import org.zerock.mallapi.dto.TodoDTO;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
 public interface TodoService {
 
     TodoDTO get(Long tno);
