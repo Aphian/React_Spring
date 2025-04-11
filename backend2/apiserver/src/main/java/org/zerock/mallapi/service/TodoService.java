@@ -19,9 +19,9 @@ public interface TodoService {
 
     }
 
-    default TodoDTO dtoToEntity(TodoDTO todoDTO) {
+    default Todo dtoToEntity(TodoDTO todoDTO) {
 
-        TodoDTO todo = TodoDTO.builder().tno(todoDTO.getTno()).title(todoDTO.getTitle()).content(todoDTO.getContent())
+        Todo todo = Todo.builder().tno(todoDTO.getTno()).title(todoDTO.getTitle()).content(todoDTO.getContent())
                 .complete(todoDTO.isComplete()).dueDate(todoDTO.getDueDate()).build();
 
         return todo;
