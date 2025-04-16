@@ -35,6 +35,7 @@ public class TodoSearchImpl extends QuerydslRepositorySupport implements TodoSea
 
         // 예측값 으로 반환
         // query 문 생성
+        // 검색 조건
         // query.where(todo.title.contains("1"));
 
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
