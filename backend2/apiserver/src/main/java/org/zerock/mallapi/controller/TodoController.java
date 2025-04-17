@@ -1,7 +1,11 @@
 package org.zerock.mallapi.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.dto.PageRequestDTO;
@@ -31,6 +35,17 @@ public class TodoController {
         log.info("list ... " + pageRequestDTO);
 
         return todoService.getList(pageRequestDTO);
+
+    }
+
+    @PostMapping("/")
+    public Map<String, Long> register(@RequestBody TodoDTO dto) {
+
+        log.info("todoDTO : " + dto);
+
+        Long tno = todoService.register(dto);
+
+        return Map.of("TNO", tno);
 
     }
 
