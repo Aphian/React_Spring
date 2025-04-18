@@ -2,6 +2,7 @@ package org.zerock.mallapi.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.zerock.mallapi.controller.formatter.LocalDataFormatter;
 
@@ -18,6 +19,14 @@ public class CustomServletConfig implements WebMvcConfigurer {
         log.info("addFormatter");
 
         registry.addFormatter(new LocalDataFormatter());
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+
+        registry.addMapping("/**").maxAge(500).allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTION")
+                .allowedOrigins("*");
+
     }
 
 }
