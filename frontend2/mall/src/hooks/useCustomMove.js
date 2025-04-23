@@ -20,9 +20,23 @@ const useCustomMove = () => {
     // page=3&size=10
     const queryDefault = createSearchParams({page, size}).toString()
 
-    const moveToList = () => {
+    const moveToList = (pageParam) => {
 
-        navigate({pathname:`../list`, search:queryDefault})
+        let queryStr = ""
+
+        if (pageParam) {
+
+            const pageNum = getNum(pageParam.page, 1)
+            const sizeNum = getNum(pageParam.size, 10)
+
+            queryStr = createSearchParams({page:pageNum, size:sizeNum}).toString()
+
+        } else {
+            queryStr = queryDefault
+        }
+        navigate({pathname: '../list', search: queryStr})
+
+        return {moveToList}
 
     }
 
