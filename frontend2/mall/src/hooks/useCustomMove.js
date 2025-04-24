@@ -40,9 +40,9 @@ const useCustomMove = () => {
 
     }
 
-    const moveToModify = (tno) => {
+    const moveToModify = (num) => {
         navigate({
-            pathname: `../modify/${tno}`,
+            pathname: `../modify/${num}`,
             search: queryDefault
         })
     }
