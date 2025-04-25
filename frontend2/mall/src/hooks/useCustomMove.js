@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom"
 
 const getNum = (param, defaultValue) => {
@@ -10,6 +11,8 @@ const getNum = (param, defaultValue) => {
 const useCustomMove = () => {
 
     const navigate = useNavigate()
+
+    const [refresh, setRefresh] = useState(false)
 
     // 이동하는 로직을 묶어서 구현
     const [queryParams] = useSearchParams()
@@ -34,6 +37,9 @@ const useCustomMove = () => {
         } else {
             queryStr = queryDefault
         }
+
+        setRefresh(!refresh)
+
         navigate({pathname: '../list', search: queryStr})
 
         return {moveToList}
@@ -47,7 +53,7 @@ const useCustomMove = () => {
         })
     }
 
-    return {moveToList, moveToModify, page, size}
+    return {moveToList, moveToModify, page, size, refresh}
 
 
 }
