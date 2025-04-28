@@ -61,7 +61,7 @@ const useCustomMove = () => {
         })
     }
 
-    return {moveToList, moveToModify, page, size, refresh}
+    return {moveToList, moveToModify, moveToRead, page, size, refresh}
 
 
 }
