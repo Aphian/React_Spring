@@ -53,6 +53,14 @@ const useCustomMove = () => {
         })
     }
 
+    // 변수를 tno 가 아닌 num 인 이유 어디서든 사용하게 하기 위해 통합적인 의미
+    const moveToRead = (num) => {
+        navigate({
+            pathname: `../read/${num}`,
+            search: queryDefault
+        })
+    }
+
     return {moveToList, moveToModify, page, size, refresh}
 
 
