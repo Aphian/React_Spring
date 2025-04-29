@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import ResultModal from '../common/ResultModal'
+import { postAdd } from '../../api/todoApi'
 
 const initState = {
   title: '',
@@ -10,6 +12,8 @@ function AddComponent() {
 
   const [todo, setTodo] = useState({...initState})
 
+  const [result, setResult] = useState(null)
+
   const handleChangeTodo = (e) => {
 
     console.log(todo[e.target.name] = e.target.value)
@@ -20,7 +24,12 @@ function AddComponent() {
   }
 
   const handleClickAdd = () => {
-    console.log(todo)
+    // console.log(todo)
+    postAdd(todo).then(result => {
+      // {TNO : 33}
+      setResult(result.TNO)
+      setTodo({...initState})
+    })
   }
 
   return (
@@ -43,6 +52,16 @@ function AddComponent() {
           </input>
         </div>
       </div>
+      <div className='flex justify-center'>
+        <div className='relative mb-4 flex w-full flex-wrap items-stretch'>
+          <div className='w-1/5 p-6 text-right font-bold'>
+            DUEDATE
+          </div>
+          <input className='w-4/5 p-6 rounded-r border-solid border-neutral-500 shadow-md'
+                name='dueDate' type={'date'} value={todo.dueDate} onChange={handleChangeTodo}>
+          </input>
+        </div>
+      </div>
       <div className='flex justify-end'>
         <div className='relative mb-4 flex p-4 flex-wrap items-stretch'>
           <button type='button' onClick={handleClickAdd} className='rounded p-4 w-36 bg-blue-500 text-xl text-white'>
@@ -50,6 +69,9 @@ function AddComponent() {
           </button>
         </div>
       </div>
+      
+      {result ? <ResultModal/> : <></>}
+      
     </div>
   )
 }
