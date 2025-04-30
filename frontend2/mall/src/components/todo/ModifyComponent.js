@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { putOne, deleteOne } from '../../api/todoApi'
 
 const initState = {
     tno: 0,
@@ -41,6 +42,19 @@ function ModifyComponent({tno}) {
 
         setTodo({...todo})
 
+    }
+
+    const handleClickModify = () => {
+        putOne(todo).then(data => {
+            console.log("modify result: " + data)
+        })
+    }
+
+    const handleClickDelete = () => {
+        deleteOne(todo).then(data => {
+            // {RESULT : SUCCESS}
+            console.log("delete result: " + data)
+        })
     }
 
     return (
@@ -88,11 +102,13 @@ function ModifyComponent({tno}) {
                 </div>
             </div>
             <div className='flex justify-end p-4'>
-                <button type='button' className='inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500'>
-                    Delete
-                </button>
-                <button type='button' className='rounded p-4 m-2 text-xl w-32 text-white bg-blue-500'>
+                <button type='button' className='rounded p-4 m-2 text-xl w-32 text-white bg-blue-500'
+                        onClick={handleClickModify}>
                     Modify
+                </button>
+                <button type='button' className='inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500'
+                        onClick={handleClickDelete}>
+                    Delete
                 </button>
             </div>
         </div>
