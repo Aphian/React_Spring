@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { putOne, deleteOne } from '../../api/todoApi'
+import useCustomMove from '../../hooks/useCustomMove'
+import ResultModal from '../common/ResultModal'
 
 const initState = {
     tno: 0,
@@ -13,6 +15,12 @@ const initState = {
 function ModifyComponent({tno}) {
 
     const [todo, setTodo] = useState(initState)
+
+    const [result, setResult] = useState(null)
+
+    // 수정(modify) -> 조회
+    // 삭제(delete) -> 목록
+    const {moveToRead, moveToList} = useCustomMove()
 
     useEffect(() => {
 
@@ -47,6 +55,7 @@ function ModifyComponent({tno}) {
     const handleClickModify = () => {
         putOne(todo).then(data => {
             console.log("modify result: " + data)
+            setResult('Modified')
         })
     }
 
@@ -54,7 +63,17 @@ function ModifyComponent({tno}) {
         deleteOne(todo).then(data => {
             // {RESULT : SUCCESS}
             console.log("delete result: " + data)
+            setResult('Deleted')
         })
+    }
+
+    const closeModal = () => {
+
+        if (result === 'Deleted') {
+            moveToList()
+        } else {
+            moveToRead(tno)
+        }
     }
 
     return (
@@ -111,6 +130,7 @@ function ModifyComponent({tno}) {
                     Delete
                 </button>
             </div>
+            {result ? <ResultModal title={"처리 결과"} content={result} callbackFn={closeModal}></ResultModal> :<></>}
         </div>
     )
 }
