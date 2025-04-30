@@ -60,7 +60,7 @@ function ModifyComponent({tno}) {
     }
 
     const handleClickDelete = () => {
-        deleteOne(todo).then(data => {
+        deleteOne(tno).then(data => {
             // {RESULT : SUCCESS}
             console.log("delete result: " + data)
             setResult('Deleted')
