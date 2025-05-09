@@ -112,4 +112,30 @@ public class CustomFileUtil {
         return ResponseEntity.ok().headers(headers).body(resource);
 
     }
+
+    public void deleteFiles(List<String> fileNames) {
+
+        if (fileNames == null || fileNames.size() == 0) {
+            return;
+        }
+
+        fileNames.forEach(fileName -> {
+
+            // 썸네일이 있으면 썸네일도 삭제
+            String thumbnailFileName = "s_" + fileName;
+
+            Path thumbnailPath = Paths.get(uploadPath, thumbnailFileName);
+            Path filePath = Paths.get(uploadPath, fileName);
+
+            try {
+                Files.deleteIfExists(filePath);
+                Files.deleteIfExists(thumbnailPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+
+        });
+
+    }
+
 }
