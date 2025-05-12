@@ -35,6 +35,8 @@ public class Product {
 
     private String pdesc;
 
+    private boolean delFlag;
+
     @ElementCollection
     @Builder.Default
     private List<ProductImage> imageList = new ArrayList<>();
@@ -68,6 +70,10 @@ public class Product {
 
     public void clearList() {
         this.imageList.clear();
+    }
+
+    public void changeDel(boolean delFlag) {
+        this.delFlag = delFlag;
     }
 
 }
