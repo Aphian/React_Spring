@@ -21,15 +21,15 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-// 연관 관계
-@ToString(exclude = "")
+// 연관 관계 테스트 시 제외 목록
+@ToString(exclude = "imageList")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pno;
 
-    private String name;
+    private String pname;
 
     private int price;
 
@@ -38,5 +38,36 @@ public class Product {
     @ElementCollection
     @Builder.Default
     private List<ProductImage> imageList = new ArrayList<>();
+
+    public void changePrice(int price) {
+        this.price = price;
+    }
+
+    public void changeDesc(String desc) {
+        this.pdesc = desc;
+    }
+
+    public void changeName(String name) {
+        this.pname = name;
+    }
+
+    public void addImage(ProductImage image) {
+
+        image.setOrd(imageList.size());
+        imageList.add(image);
+
+    }
+
+    public void addImageString(String fileName) {
+
+        ProductImage productImage = ProductImage.builder().fileName(fileName).build();
+
+        addImage(productImage);
+
+    }
+
+    public void clearList() {
+        this.imageList.clear();
+    }
 
 }
