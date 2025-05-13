@@ -72,4 +72,22 @@ public class ProductRepositoryTests {
         productRepository.updateToDelete(pno, true);
     }
 
+    @Test
+    public void testUpdate() {
+
+        Product product = productRepository.seletOne(1L).get();
+
+        product.changePrice(3000);
+
+        product.clearList();
+
+        product.addImageString(UUID.randomUUID() + "_" + "PIMAGE1.jpg");
+
+        product.addImageString(UUID.randomUUID() + "_" + "PIMAGE2.jpg");
+
+        product.addImageString(UUID.randomUUID() + "_" + "PIMAGE3.jpg");
+
+        productRepository.save(product);
+
+    }
 }
