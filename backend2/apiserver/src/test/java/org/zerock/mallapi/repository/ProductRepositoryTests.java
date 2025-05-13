@@ -1,5 +1,6 @@
 package org.zerock.mallapi.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,36 @@ public class ProductRepositoryTests {
         product.addImageString(UUID.randomUUID() + "_" + "IMAGE2.jpg");
 
         productRepository.save(product);
+
+    }
+
+    @Test
+    public void testRead() {
+
+        Long pno = 1L;
+
+        Optional<Product> result = productRepository.findById(pno);
+
+        Product product = result.orElseThrow();
+
+        log.info(product);
+
+        log.info(product.getImageList());
+
+    }
+
+    @Test
+    public void testRead2() {
+
+        Long pno = 1L;
+
+        Optional<Product> result = productRepository.seletOne(pno);
+
+        Product product = result.orElseThrow();
+
+        log.info(product);
+
+        log.info(product.getImageList());
 
     }
 

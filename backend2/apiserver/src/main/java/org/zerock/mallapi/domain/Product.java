@@ -53,6 +53,10 @@ public class Product {
         this.pname = name;
     }
 
+    public void changeDel(boolean delFlag) {
+        this.delFlag = delFlag;
+    }
+
     public void addImage(ProductImage image) {
 
         image.setOrd(imageList.size());
@@ -70,10 +74,6 @@ public class Product {
 
     public void clearList() {
         this.imageList.clear();
-    }
-
-    public void changeDel(boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
 }
