@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -58,6 +60,16 @@ public class ProductRepositoryTests {
 
         log.info(product.getImageList());
 
+    }
+
+    @Commit
+    @Transactional
+    @Test
+    public void testDelete() {
+
+        Long pno = 2L;
+
+        productRepository.updateToDelete(pno, true);
     }
 
 }
