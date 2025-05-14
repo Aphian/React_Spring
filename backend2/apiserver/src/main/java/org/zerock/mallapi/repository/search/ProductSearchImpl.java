@@ -14,6 +14,7 @@ import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
 
 import lombok.extern.log4j.Log4j2;
@@ -46,11 +47,13 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         Objects.requireNonNull(getQuerydsl()).applyPagination(pageable, query);
 
         List<Product> productList = query.fetch();
+        List<Tuple> productList2 = query.select(product, productImage).fetch();
 
         long count = query.fetchCount();
 
         log.info("==============================");
         log.info(productList);
+        log.info(productList2);
 
         return null;
 
