@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Product;
+import org.zerock.mallapi.dto.PageRequestDTO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -108,6 +109,15 @@ public class ProductRepositoryTests {
         Page<Object[]> result = productRepository.selectList(pageable);
 
         result.getContent().forEach(arr -> log.info(Arrays.toString(arr)));
+
+    }
+
+    @Test
+    public void testSearch() {
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
+
+        productRepository.searchList(pageRequestDTO);
 
     }
 
