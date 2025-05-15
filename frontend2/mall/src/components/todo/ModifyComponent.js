@@ -34,7 +34,7 @@ function ModifyComponent({tno}) {
 
     const handleChangeTodo = (e) => {
 
-        console.log(todo[e.target.name] = e.target.value)
+        // console.log(todo[e.target.name] = e.target.value)
     
         todo[e.target.name] = e.target.value
 
@@ -54,7 +54,7 @@ function ModifyComponent({tno}) {
 
     const handleClickModify = () => {
         putOne(todo).then(data => {
-            console.log("modify result: " + data)
+            // console.log("modify result: " + data)
             setResult('Modified')
         })
     }
