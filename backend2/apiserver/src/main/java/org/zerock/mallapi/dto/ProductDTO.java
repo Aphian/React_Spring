@@ -33,6 +33,6 @@ public class ProductDTO {
     private List<MultipartFile> files = new ArrayList<>();
 
     @Builder.Default
-    private List<String> uploadedFileNames = new ArrayList<>();
+    private List<String> uploadFileNames = new ArrayList<>();
 
 }
