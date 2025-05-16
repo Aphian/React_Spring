@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.dto.PageRequestDTO;
+import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.util.CustomFileUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,8 @@ public class ProductController {
 
     private final CustomFileUtil fileUtil;
 
+    private final ProductService productService;
+
     @PostMapping("/")
     public Map<String, String> register(ProductDTO productDTO) {
 
@@ -34,7 +39,7 @@ public class ProductController {
 
         List<String> uploadFiledNames = fileUtil.saveFiles(files);
 
-        productDTO.setUploadedFileNames(uploadFiledNames);
+        productDTO.setUploadFileNames(uploadFiledNames);
 
         log.info(uploadFiledNames);
 
@@ -46,6 +51,13 @@ public class ProductController {
     public ResponseEntity<Resource> viewFileGET(@PathVariable("fileName") String fileName) {
 
         return fileUtil.getFile(fileName);
+
+    }
+
+    @GetMapping("/list")
+    public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
+
+        return productService.getList(pageRequestDTO);
 
     }
 
