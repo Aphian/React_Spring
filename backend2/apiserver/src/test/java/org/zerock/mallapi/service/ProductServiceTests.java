@@ -1,5 +1,7 @@
 package org.zerock.mallapi.service;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +26,19 @@ public class ProductServiceTests {
         PageResponseDTO<ProductDTO> responseDTO = productService.getList(pageRequestDTO);
 
         log.info(responseDTO.getDtoList());
+
+    }
+
+    @Test
+    public void testRegister() {
+
+        ProductDTO productDTO = ProductDTO.builder().pname("새로운 상품").pdesc("신규 추가 상품").price(1000).build();
+
+        // UUID 있어야함.
+        productDTO.setUploadFileNames(
+                java.util.List.of(UUID.randomUUID() + "_" + "Test1.jpb", UUID.randomUUID() + "_" + "Test2.jpg"));
+
+        productService.register(productDTO);
 
     }
 
