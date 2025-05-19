@@ -64,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = Product.builder().pno(productDTO.getPno()).pname(productDTO.getPname())
                 .pdesc(productDTO.getPdesc()).price(productDTO.getPrice()).build();
 
+        // 업로드 처리가 끝난 파일들의 이르 리스트.
         List<String> uploadFileName = productDTO.getUploadFileNames();
 
         if (uploadFileName == null || uploadFileName.size() == 0) {
