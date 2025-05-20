@@ -160,4 +160,11 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public void remove(Long pno) {
+        // 이 프로젝트에서 삭제는 delFlag 를 변경해주는 것임.
+        productRepository.deleteById(pno);
+
+    }
+
 }

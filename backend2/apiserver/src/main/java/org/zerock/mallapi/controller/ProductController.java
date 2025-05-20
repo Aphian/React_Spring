@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,7 @@ public class ProductController {
     // }
 
     @GetMapping("/view/{fileName}")
-    public ResponseEntity<Resource> viewFileGET(@PathVariable("fileName") String fileName) {
+    public ResponseEntity<Resource> viewFileGET(@PathVariable(name = "fileName") String fileName) {
 
         return fileUtil.getFile(fileName);
 
@@ -89,7 +90,7 @@ public class ProductController {
 
     // Put 방식 -> 페이로드 가능
     @PutMapping("/{pno}")
-    public Map<String, String> modify(@PathVariable("pno") Long pno, ProductDTO productDTO) {
+    public Map<String, String> modify(@PathVariable(name = "pno") Long pno, ProductDTO productDTO) {
 
         productDTO.setPno(pno);
 
@@ -113,13 +114,26 @@ public class ProductController {
 
         List<String> oldFileNames = oldProductDTO.getUploadFileNames();
         if (oldFileNames != null && oldFileNames.size() > 0) {
-            // 지워저야할 file
+            // 지워져야할 file
             List<String> removeFiles = oldFileNames.stream()
                     .filter(fileName -> uploadedFileNames.indexOf(fileName) == -1).collect(Collectors.toList());
 
             fileUtil.deleteFiles(removeFiles);
 
         } // end if
+
+        return Map.of("RESULT", "SUCCESS");
+
+    }
+
+    @DeleteMapping("/{pno}")
+    public Map<String, String> remove(@PathVariable(name = "pno") Long pno) {
+
+        List<String> oldFileNames = productService.get(pno).getUploadFileNames();
+
+        productService.remove(pno);
+
+        fileUtil.deleteFiles(oldFileNames);
 
         return Map.of("RESULT", "SUCCESS");
 
