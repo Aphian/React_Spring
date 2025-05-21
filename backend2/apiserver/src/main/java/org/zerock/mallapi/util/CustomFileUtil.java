@@ -58,18 +58,22 @@ public class CustomFileUtil {
 
         List<String> uploadNames = new ArrayList<>();
 
-        for (MultipartFile file : files) {
+        for (MultipartFile multipartFile : files) {
 
-            String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            if (multipartFile.getOriginalFilename() == null || multipartFile.getOriginalFilename().equals("")) {
+                continue;
+            }
+
+            String savedName = UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
 
             Path savePath = Paths.get(uploadPath, savedName);
 
             try {
                 // 원본 파일 업로드
-                Files.copy(file.getInputStream(), savePath);
+                Files.copy(multipartFile.getInputStream(), savePath);
 
                 // Mine type
-                String contentType = file.getContentType();
+                String contentType = multipartFile.getContentType();
                 // 파일이 이미지라면
                 if (contentType != null && contentType.startsWith("image")) {
 
