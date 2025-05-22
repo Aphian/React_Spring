@@ -7,7 +7,7 @@ const ReadComponent = ({tno}: {tno:number}) => {
 
     const [todo, setTodo] = useState<Todo>(initState) //아직 todo는 사용하지 않음 
 
-    const {moveToList}:UseCustomMoveReturn = useCustomMove()
+    const {moveToList, moveToModify}:UseCustomMoveReturn = useCustomMove()
 
     useEffect(() => {
         getOne(tno).then(data => {
@@ -24,6 +24,9 @@ const ReadComponent = ({tno}: {tno:number}) => {
             <div className="border-2 border-sky-200 mt-10 m-2 p-4">
                 <button type="button" className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500" onClick={() => moveToList}>
                     List
+                </button>
+                <button type="button" className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500" onClick={() => moveToModify(tno)}>
+                    Modify
                 </button>
             </div>
         </div>
