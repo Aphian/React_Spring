@@ -29,3 +29,9 @@ interface PageResponseDTO<T> {
     totalPage: number
     current: number
 }
+
+interface ResultModal {
+    title: string,
+    content: string,
+    callbackFn? : () => void
+}

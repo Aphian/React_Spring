@@ -5,3 +5,9 @@ interface Todo {
     dueDate: string | null
     complete: boolean
 }
+
+interface TodoAdd {
+    title: string,
+    content: string,
+    dueDate: string
+}
