@@ -33,10 +33,18 @@ function AddComponent() {
 
     const [state, action, isPending] = useActionState(addAsyncAction, initState)
 
+    const{moveToList} = useCustomMove()
+
+    const closeModal = () => {
+
+        moveToList()
+
+    }
+
     return (
         <div className = "border-2 border-sky-200 mt-10 m-2 p-4"> 
             {isPending && <div className="bg-amber-400">처리 중 ....</div>}
-            {state.result != 0 && <div>처리 결과 {state.result}</div>}
+            {state.result != 0 && <ResultModal title="상품 처리 결과" content={`새로운 ${state.result} 상품 추가`} callbackFn={closeModal}/>}
             <form action={action} >
                 <div className="flex justify-center">
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
