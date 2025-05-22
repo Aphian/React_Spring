@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getList } from "../../api/todoApi"
 import useCustomMove from "../../hooks/useCustomMove"
+import PageComponent from "../common/pageComponent"
+
 const initState: PageResponseDTO<Todo> = {
     dtoList:[],
     pageNumList:[],
@@ -14,15 +16,15 @@ const initState: PageResponseDTO<Todo> = {
     current: 0
 }
 const ListComponent = () => {
-    const { page, size, moveToRead, moveToList }:UseCustomMoveReturn = useCustomMove()
-    //serverData는 나중에 사용
+    const { page, size, moveToRead, moveToList, refresh }:UseCustomMoveReturn = useCustomMove()
+    
     const [serverData, setServerData] = useState(initState)
     useEffect(() => {
         getList({page,size}).then(data => {
             console.log(data)
             setServerData(data)
         })
-    }, [page,size])
+    }, [page, size, refresh])
     return (
         <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
             <div className="flex flex-wrap mx-auto justify-center p-6">
@@ -41,6 +43,7 @@ const ListComponent = () => {
                     </div>
                 </div>
                 )}
+                <PageComponent serverData={serverData} movePage={moveToList}></PageComponent>
             </div>
         </div>
     )
