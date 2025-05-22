@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react"
 import { getOne } from "../../api/todoApi"
+import useCustomMove from "../../hooks/useCustomMove"
 
 const initState : Todo = {tno:0, title:'', content:'', dueDate: null,  complete: false }
 const ReadComponent = ({tno}: {tno:number}) => {
+
     const [todo, setTodo] = useState<Todo>(initState) //아직 todo는 사용하지 않음 
+
+    const {moveToList}:UseCustomMoveReturn = useCustomMove()
+
     useEffect(() => {
         getOne(tno).then(data => {
             console.log(data)
@@ -15,7 +20,12 @@ const ReadComponent = ({tno}: {tno:number}) => {
             {makeDiv('Tno', todo.tno)}
             {makeDiv('Writer', todo.content)}
             {makeDiv('Title', todo.title)}
-            {makeDiv('Title', todo.complete ? 'Completed' : 'Not Yet')} 
+            {makeDiv('Title', todo.complete ? 'Completed' : 'Not Yet')}
+            <div className="border-2 border-sky-200 mt-10 m-2 p-4">
+                <button type="button" className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500" onClick={() => moveToList}>
+                    List
+                </button>
+            </div>
         </div>
     )
 }
