@@ -5,6 +5,7 @@ const ProductsIndex = lazy(() => import("../pages/products/indexPage"))
 const Loading = () => <div>Products Loading....</div>
 
 const ProductsList = lazy(() => import("../pages/products/listPage"))
+const ProductsAdd = lazy(() => import("../pages/products/addPage"))
 
 export default function productsRouter() {
     return (
@@ -19,6 +20,10 @@ export default function productsRouter() {
                 {
                     path: "",
                     element: <Navigate to={"/product/list"}></Navigate>
+                },
+                {
+                    path: "add",
+                    element: <Suspense fallback={<Loading></Loading>}><ProductsAdd></ProductsAdd></Suspense>
                 }
             ] 
         }
