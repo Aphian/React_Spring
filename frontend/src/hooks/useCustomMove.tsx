@@ -42,10 +42,11 @@ const useCustomMove = () => {
         navigate({ pathname: `../modify/${num}`, search: queryDefault })
     },[page,size])
 
-    const moveToRead = (tno:number) => {
-
-        navigate({ pathname: `../read/${tno}`, search: queryDefault})
-
+    const moveToRead = (num: number) => {
+        
+        console.log(queryDefault)
+        navigate({ pathname: `../read/${num}`, search: queryDefault})
+        
     }
 
     return {page,size, moveToList, moveToModify, moveToRead, refresh}
